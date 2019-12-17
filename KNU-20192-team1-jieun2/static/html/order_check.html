@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/order_check.css' %}">
+{% if user.is_authenticated %}
+            <a href="{% url 'home' %}"><p>TAKE</p></a>
+            <h2>주문 내역</h2>
+            <table border="1">
+            <tr>
+
+                <th>가게</th>
+                <th>메뉴</th>
+                <th>수량</th>
+                <th>총 가격</th>
+                <th>주문시간</th>
+                <th>삭제</th>
+            </tr>
+
+            {% for order in orders.all %} 
+            {% if order.user == user %}
+            <tr>
+                <td>{{order.market.name}}</td>
+                <td>{{order.menu.name}}</td>
+                <td>{{order.amount}}</td>
+                <td>{{order.Totalprice}}</td>
+                <td>{{order.time}}</td>
+                <td>
+                <form method='post'  action="{% url 'order_delete' order.id %}" enctype="multipart/form-data"> 
+                    {% csrf_token %}
+                    <input class="submit" type="submit" value="삭제">
+                </form>
+                </td>
+            </tr>
+            {% endif %}
+            {% endfor %}           
+            </table>
+{% endif %}
+{% endblock content %}

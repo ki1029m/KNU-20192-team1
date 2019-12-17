@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+            <!--가게 상세 설명-->
+            <a href="{% url 'home' %}"><p>TAKE</p></a>
+            <ol>
+                <li>가게 이름 : {{market.name}}</li>
+                <li>위치 : {{market.address}}</li>
+                <li>오픈 시간 : {{market.start_time}}</li>
+                <li>마감 시간 : {{market.end_time}}</li>
+                <li>정보 : {{market.description}}</li>
+            </ol>
+
+            <!--즐겨찾기 기능-->
+
+            
+            
+            <div class="good">
+                    <div class="goodicon">
+                        {% if message == "즐겨찾기 취소" %}
+                            <i class="xi-star xi-2x"></i>
+                        {% else %}
+                            <i class="xi-star-o xi-2x"></i>
+                            
+                        {% endif %}
+                    </div>
+                    <a href="{% url 'post_like' market.id %}">
+                        {{message}}
+                    </a>
+                    <div class="goodnum">
+                        즐겨찾는 사람 {{market.like_count}}명
+                    </div>
+            </div>
+            <br>
+
+            <a href="{%url 'delete' market.id %}">삭제</a>
+
+
+            <!--menu 출력-->
+            {% for menu in market.menu_set.all %}
+                <hr class="comment_line">
+                <div class="comment comment2">
+                    <!--{% if board.writer == comment.writer %}
+                        <td class="tableb2">글쓴이</td> 
+                    {% else %}
+                        <td class="tableb3">아이디: {{comment.writer}}</td> 
+                    {% endif %}-->
+                </div>
+                <form method="post" action="{% url 'order_create' market.id menu.id %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="comment comment1">
+                    <td class="tableb1">메뉴 이름 :{{menu.name}}</td>
+                    {% if menu.photo %}
+                    사진 : <img src="{{menu.photo.url}}" width="200" height="150">
+                    {% endif %}
+                    <td class="tableb1">가격 : {{menu.price}}</td>
+                    <td class="tableb1">남은 수량 : {{menu.left}}</td>
+                    <td class="tableb1">설명 : {{menu.description}}</td>
+                </div>
+                <input type='number' name='quantity' min='1', max={{menu.left}}>
+                <input type="submit" value="주문">
+                </form>
+            {% endfor %}
+                
+            <!--menu 등록-->
+            <hr class="comment_line">
+            <form method='post' action="{% url 'menu_create' market.id %}" enctype="multipart/form-data"> 
+                    {% csrf_token %}
+                    메뉴 이름 : <input type="text" name="name"><br>
+                    가격 : <input type="number" name="price"><br>
+                    남은 수량 : <input type="number" name="left"><br>
+                    설명 : <input type="text" name="description"><br>
+                    사진 : <input type="file" name="photo" id="photo">
+                    <input class="submit" type="submit" value="완료">
+            </form> 
+
+            <!--글 목록-->
+            <a href="{% url 'market' %}">글 목록</a>
+{% endblock content %}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+    <div style="visibility: hidden; overflow: hidden; position: absolute; top: 0px; height: 1px; width: auto; padding: 0px; border: 0px; margin: 0px; text-align: left; text-indent: 0px; text-transform: none; line-height: normal; letter-spacing: normal; word-spacing: normal;"><div id="MathJax_Hidden"></div></div>
+    <div id="MathJax_Message" style="display: none;"></div>
+    <div class="container">
+        <header class="header">
+            <div class="inner">
+                <nav class="naviagtion">
+                    <!-- <p style="font-size: 40px; margin:0; padding:0;">TAKE</p> -->
+                    <ul class="navigation__flex">
+                        <li class="naviagtion__item" style="flex:1; "><a href="/" class="navigation__logo" style="color:black; background-color: white;" >TAKE</a></li>
+                        {% if user.is_active %}
+                            <h3>{{user.username}}님</h3>
+                            {% if user.username != 'admin' %}
+                                {% if user.profile.market_id != -1 %}     
+                                    <h3>[[가게 주인]]</h3>
+                                {% else %}
+                                    <h3>[[일반회원]]</h3>
+                                {% endif %}
+                            {% else %}
+                                <h3>[[관리자]]</h3>
+                            {% endif %}
+                        <li class="naviagtion__item"><a href="{% url 'logout'%}">로그아웃</a></li>
+                        {% else %}
+                        <li class="naviagtion__item"><a href="{% url 'login'%}">로그인</a></li>
+                        <li class="naviagtion__item"><a href="{% url 'signup'%}">회원가입</a></li>
+                        {% endif %}
+                    </ul>
+                </nav>
+            </div>
+        </header>
+        <section class="content inner2 textbook-detail solutions">
+        {% block content %}
+        {% endblock content %}
+        </section>
+        <!-- <section class="content inner2 textbook-detail solutions">
+            <a href="{% url 'market'%}">가게 등록</a>
+            <a href="{% url 'market_search'%}">가게 keyword 검색</a>
+            <a href="">가게 지도 검색</a>
+            <br>
+            <br>
+            <hr>
+            {% for a in like %}
+            {% if a.user == user %}
+                <a href="{% url 'detail' a.market.id %}">{{a.market.name}}</a>
+            {% endif %}
+            {% endfor %}
+            <section class="mini-faq">
+                <h5>KNU-20192-team1-TAKE : 음료 예약 서비스</h5>
+                <p>2019년도 2학기 소프트웨어 설계 6분반 1팀입니다. 프로젝트의 명은 "TAKE"로 TAKE는 기존의 음료를 사는 방식과 달리 음료를 미리 예약하는 플랫폼을 제공합니다.</p>
+            </section> -->
+        </section>
+    </div>
+    <footer>
+        <section class="inner">
+            <section class="branding">
+            <h1>TAKE</h1>
+            <h2>음료 예약 서비스</h2>
+        </section>
+    </footer>
+</body>
+</html>

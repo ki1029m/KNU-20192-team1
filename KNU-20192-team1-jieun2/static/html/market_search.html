@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/market_search.css' %}">
+            <a href="{% url 'home' %}"><p>TAKE</p></a>
+            <h2>"가게 검색" 입니다.</h2>
+            <br>
+
+            <form method='get'>
+            <input type="text" name="context" value="{{context}}" placeholder="가게 이름을 입력하세요.">
+            <input type="submit" value="검색">
+            </form>
+            {% for markets in market_search.all %}
+                <!-- {% for menu in markets.menu %}
+                    {{menu.name}}
+                {% endfor %} -->
+                <a href="{%url 'detail' markets.id%}">{{markets.name}}</a>
+            {% endfor %}
+{% endblock content %}

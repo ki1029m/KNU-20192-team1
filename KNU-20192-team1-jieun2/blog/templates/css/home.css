@@ -1,0 +1,11 @@
+.menu{
+    text-align : center;
+    font-size: 2rem;
+}
+
+.menu a{
+    color: white;
+    background-color: black;
+    border: 3px solid black;
+    margin: 10px;
+}

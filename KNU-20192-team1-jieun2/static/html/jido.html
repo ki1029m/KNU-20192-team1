@@ -1,0 +1,244 @@
+
+    {% extends "base.html" %}
+    {% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/jido.css' %}">
+    <div style="display:flex">
+    <div style="flex: 1 auto">
+    <h1>주변 가게 보기</h1>
+    <input type="text" id="input">
+    <button onclick="input()">입력받기</button>
+    <br>
+    </div>
+    
+
+    <div id="map" style="width:800px;height:350px;"></div>
+    </div>
+    <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5cc7bdb70e56d862f043fce1d0c783f&libraries=services,clusterer,drawing"></script>
+    <script>
+        var temp;
+        var Lat;
+        var Lng;
+
+        function input(){                                              //입력창 입니다.
+            var input = document.getElementById("input").value;
+            temp = input;
+
+            var mapContainer = document.getElementById('map'), // 지도를 표시할 div 
+            mapOption = {
+                center: new kakao.maps.LatLng(33.450701, 126.570667), // 지도의 중심좌표
+                level: 3 // 지도의 확대 레벨
+            };  
+
+            // 지도를 생성합니다    
+            var map = new kakao.maps.Map(mapContainer, mapOption); 
+
+            // 주소-좌표 변환 객체를 생성합니다
+            var geocoder = new kakao.maps.services.Geocoder();
+
+            
+
+            // 주소로 좌표를 검색합니다
+            geocoder.addressSearch(temp, function(result, status) {
+
+                // 정상적으로 검색이 완료됐으면 
+                if (status === kakao.maps.services.Status.OK) {
+
+                    var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+                    // 결과값으로 받은 위치를 마커로 표시합니다
+                    var marker = new kakao.maps.Marker({
+                        map: map,
+                        position: coords
+                    });
+
+                    // 인포윈도우로 장소에 대한 설명을 표시합니다
+                    var infowindow = new kakao.maps.InfoWindow({
+                        content: '<div style="width:150px;text-align:center;padding:6px 0;">당신이 검색한 카페가 맞나요.. 맞을꺼야..</div>'
+                    });
+                    infowindow.open(map, marker);
+
+                    // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+                    map.setCenter(coords);
+                } 
+            }); 
+        }
+
+
+        function findLocation() {
+            if (navigator.geolocation) { 
+                var positionOption = {
+                    enableHighAccuracy: true,
+                    maximumAge: 0,
+                    timeout: 6000
+                };
+                
+                navigator.geolocation.getCurrentPosition(showYourLocation, showErrorMsg, positionOption); 
+            } else { 
+                loc.innerHTML = "웹 브라우저가 Geolocation API를 지원하지 않습니다!"; 
+            }
+        }
+
+        function showErrorMsg(error) {
+            switch(error.code) {
+                case error.PERMISSION_DENIED:
+                loc.innerHTML = "Geolocation API의 사용 요청을 허가해 주십시오."
+                break;
+                case error.POSITION_UNAVAILABLE:
+                loc.innerHTML = "가져온 위치 정보를 사용할 수 없습니다."
+                break;
+                case error.TIMEOUT:
+                loc.innerHTML = "요청 허용 시간을 초과하였습니다."
+                break;
+                case error.UNKNOWN_ERROR:
+                loc.innerHTML = "미확인 오류발생..."
+                break;
+            }
+        }
+
+        function showYourLocation(position) {
+            Lat = position.coords.latitude;
+            Lng = position.coords.longitude;
+
+            var container = document.getElementById('map');
+            var options = {
+                center: new kakao.maps.LatLng(Lat, Lng),
+                level: 3
+            };
+
+            var map = new kakao.maps.Map(container, options);
+
+            // 마커가 표시될 위치입니다 
+            var markerPosition  = new kakao.maps.LatLng(Lat, Lng); 
+
+            // 마커를 생성합니다
+            var marker = new kakao.maps.Marker({
+                position: markerPosition
+            });
+
+            // 마커가 지도 위에 표시되도록 설정합니다
+            marker.setMap(map);
+
+            var imageSrc = 'https://image.flaticon.com/icons/png/512/129/129501.png', // 마커이미지의 주소입니다    
+                imageSize = new kakao.maps.Size(35, 35), // 마커이미지의 크기입니다
+                imageOption = {offset: new kakao.maps.Point(25, 25)};
+
+            var markerImage = new kakao.maps.MarkerImage(imageSrc, imageSize, imageOption),
+                kaldi = new kakao.maps.LatLng(35.885628,128.610128);
+            var markkaldi = new kakao.maps.Marker({
+                map: map,
+                position: kaldi,
+                image: markerImage
+            })
+            var infokaldi = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">칼디커피</div>'
+            });
+            //infokaldi.open(map, markkaldi);
+            markkaldi.setMap(map);
+
+            var keanu = new kakao.maps.LatLng(35.885859, 128.610040);
+            var markkeanu = new kakao.maps.Marker({
+                map: map,
+                position: keanu,
+                image: markerImage
+            })
+            var infokeanu = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">KEANU</div>'
+            });
+            //infokeanu.open(map, markkeanu);
+            markkeanu.setMap(map);
+
+            var cofking = new kakao.maps.LatLng(35.885494, 128.609887);
+            var markcofking = new kakao.maps.Marker({
+                map: map,
+                position: cofking,
+                image: markerImage
+            })
+            var infocofking = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">커피왕</div>'
+            });
+            //infocofking.open(map, markcofking);
+            markcofking.setMap(map);
+
+            var havana = new kakao.maps.LatLng(35.885506, 128.610033);
+            var markhavana = new kakao.maps.Marker({
+                map: map,
+                position: havana,
+                image: markerImage
+            })
+            var infohavana = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">HAVANA EXPRESS</div>'
+            });
+            //infohavana.open(map, markhavana);
+            markhavana.setMap(map);
+
+            kakao.maps.event.addListener(markkaldi, 'mouseover', function() {
+            // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
+                infokaldi.open(map, markkaldi);
+            });
+
+            // 마커에 마우스아웃 이벤트를 등록합니다
+            kakao.maps.event.addListener(markkaldi, 'mouseout', function() {
+                infokaldi.close();
+            });
+            
+            kakao.maps.event.addListener(markkaldi, 'click', function() {
+                window.location = "{% url 'detail' 7 %}";
+            });
+
+
+            kakao.maps.event.addListener(markhavana, 'mouseover', function() {
+                infohavana.open(map, markhavana);
+            });
+
+            kakao.maps.event.addListener(markhavana, 'mouseout', function() {
+                infohavana.close();
+            });
+
+            kakao.maps.event.addListener(markhavana, 'click', function() {
+                window.location.href = '127.0.0.1:8000/';
+            });
+
+            
+            kakao.maps.event.addListener(markcofking, 'mouseover', function() {
+                infocofking.open(map, markcofking);
+            });
+
+            kakao.maps.event.addListener(markcofking, 'mouseout', function() {
+                infocofking.close();
+            });
+
+            kakao.maps.event.addListener(markcofking, 'click', function() {
+                window.location.href = '127.0.0.1:8000/';
+            });
+
+
+            kakao.maps.event.addListener(markkeanu, 'mouseover', function() {
+                infokeanu.open(map, markkeanu);
+            });
+
+            kakao.maps.event.addListener(markkeanu, 'mouseout', function() {
+                infokeanu.close();
+            });
+
+            kakao.maps.event.addListener(markkeanu, 'click', function() {
+                window.location = "{% url 'detail' 5 %}";
+            });
+
+            // var dog = new kakao.maps.LatLng(36.0988367,128.0059136);
+            // var markdog = new kakao.maps.Marker({
+            //     map: map,
+            //     position: dog
+            // })
+            // var infodog = new kakao.maps.InfoWindow({
+            //     content: '<div style="width:150px;text-align:center;padding:6px 0;">카페모리</div>'
+            // });
+            // infodog.open(map, markdog);
+            // markdog.setMap(map);
+        }
+
+
+
+        window.addEventListener("load", findLocation);
+    </script>
+    {% endblock content %}

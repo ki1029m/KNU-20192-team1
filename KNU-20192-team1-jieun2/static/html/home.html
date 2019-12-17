@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+<a href="{% url 'market'%}">가게 등록</a>
+<a href="{% url 'market_search'%}">가게 검색</a>
+<a href="{% url 'jido' %}">주변 가게 알아보기</a>
+{% if user.is_active %}
+<a href="{% url 'order_check' %}">주문 내역 확인</a>
+<br>
+<hr>
+<p>{{user}}님이 즐겨찾는 가게 :</p>
+{% for a in like %}
+{% if a.user == user %}
+    <a href="{% url 'detail' a.market.id %}">{{a.market.name}}</a>
+{% endif %}
+{% endfor %}
+{% endif %}
+{% endblock content %}
+

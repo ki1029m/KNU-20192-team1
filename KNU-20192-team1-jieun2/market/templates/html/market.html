@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+{% block content %}
+{% load static %}
+    <link rel="stylesheet" href="{% static 'css/market.css' %}">
+    {% if user.is_authenticated %}
+    <!DOCTYPE html>
+    <html>
+        <head>
+            <title>TAKE 가게 게시판</title>
+        </head>
+        <body>
+                <a href="{% url 'home' %}"><p>TAKE</p></a>
+                <h2>"가게" 게시판 입니다.</h2>
+                <hr>
+                <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">가게 이름</th>
+                            <th scope="col">위치</th>
+                            <th scope="col">오픈 시간</th>
+                            <th scope="col">마감 시간</th>
+                            </tr>
+                        </thead>
+                        
+                        <tbody>
+                        {% for market in markets.all %}  
+                            <tr>
+                                <th scope="row">{{market.id}}</th>
+                                <td><a href="{%url 'detail' market.id %}">{{market.name}}</a></td>
+                                <th scope="row">{{market.address}}</th>
+                                <td>{{market.start_time}}</td>
+                                <td>{{market.end_time}}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                </table>
+                <a href="{% url 'new' %}"><button type="button" class="btn btn-danger">등록하기</button>
+            </body>
+    </html>
+    {% endif %}
+{% endblock content %}

@@ -1,0 +1,12 @@
+    {% extends "base.html" %}
+    {% block content %}
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <h1>로그인</h1>
+    <form method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        아이디: <input placeholder="아이디" type="text" name="userID"><br>
+        비밀번호: <input placeholder="비밀번호" type="password" name="password"><br>
+        <input type="submit" value="로그인">
+    </form>
+    {% endblock content %}
