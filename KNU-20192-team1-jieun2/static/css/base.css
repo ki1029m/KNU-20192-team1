@@ -1,7 +1,8 @@
 head {
     display: none;
+    
 }
-
+@font-face { font-family: 'Cafe24Danjunghae'; src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_twelve@1.1/Cafe24Danjunghae.woff') format('woff'); font-weight: normal; font-style: normal; }
 html{
     font-size: 100%;
     box-sizing: border-box;
@@ -13,13 +14,13 @@ body{
     font-weight: 400;
     color: #000;
     display: block;
+    font-family: 'Cafe24Danjunghae';
 }
 
 body, html {
     box-sizing: border-box;
     height: 100%;
     margin: 0;
-    min-height: 100%;
     min-width: 100%;
     padding: 0;
     position: relative;
@@ -29,8 +30,9 @@ body, html {
     min-height: 100%;
     position: relative;
     width: 100%;
-    padding-bottom: 188px;
+    /* padding-bottom: 188px; */
     padding-top: 60px;
+    padding-bottom:109px;
 }
 
 body:not(.home) .container>.header {
@@ -56,7 +58,7 @@ body:not(.home) .container>.header {
 .container>.content {
     margin-top: -1px;
     min-height: 100%;
-    padding-bottom:188px;
+    position: relative;
 }
 
 .container .inner2 {
@@ -98,9 +100,19 @@ body:not(.home) .container>.header {
     text-transform: capitalize;
 }
 
+.header a{
+    text-decoration: none;
+    color: white; 
+    background-color: black;
+    padding-left:6px;
+    padding-right:6px;
+    margin-left:3px;
+}
+
 a{
     text-decoration: none;
-    color: black;
+    padding-left:6px;
+    padding-right:6px;
 }
 
 nav ol, nav ul {
@@ -115,6 +127,9 @@ nav ol, nav ul {
     overflow: hidden;
     width: 100%;
     padding: right 770%;
+    font-size: 2.3rem;
+    color: black;
+    background-color: white;
 }
 
 
@@ -131,8 +146,7 @@ section.mini-faq {
 }
 
 body>footer {
-    font-family: "Helvetica Neue",Helvetica,Arial,"Lucida Grande",sans-serif;
-    font-size: .8125rem;
+    font-size: 1rem;
     font-stretch: normal;
     font-style: normal;
     font-weight: 300;
@@ -141,17 +155,15 @@ body>footer {
     padding: 5px 0 2px!important;
     width: 100%;
     z-index: 200;
-    position: absolute;   
 }
 
 footer{
     bottom : 0;
+    position: fixed;
 }
 
-body>footer ul.legal-copyright {
-    color: #fff;
-    flex: 1 1 auto;
-    text-align: right;
+footer .branding{
+    margin-left: 10px;
 }
 
 body>footer ul:last-of-type {

@@ -1,0 +1,18 @@
+.signup{
+    text-align: center;
+}
+
+.signup h1{
+    margin-bottom:0;
+    margin-top: 20px;
+}
+
+.form{
+    font-size:2rem;
+    text-align: right;
+    padding-right:35%;
+}
+
+.form input{
+    padding: 10px;
+}

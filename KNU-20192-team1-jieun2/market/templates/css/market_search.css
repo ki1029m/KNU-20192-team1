@@ -1,0 +1,11 @@
+.search{
+    color: black;
+    font-size: 1.2rem;
+    text-align: center;
+}
+
+.search a{
+    text-decoration: none;
+    color: black;
+}
+

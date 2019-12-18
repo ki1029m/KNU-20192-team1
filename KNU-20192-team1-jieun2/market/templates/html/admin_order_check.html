@@ -3,46 +3,37 @@
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/admin_order_check.css' %}">
 {% if user.is_authenticated %}
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>하이</title>
-    </head>
-    <body>
-            <a href="{% url 'home' %}"><p>TAKE</p></a>
             <h2>[가게] {{markets.name}} 주문 내역</h2>
-            <table border="1">
-            <tr>
+            <table style="border-collapse: collapse; width:100%;"  border="1">
+                <tr>
 
-                <th>가게</th>
-                <th>메뉴</th>
-                <th>수량</th>
-                <th>총 가격</th>
-                <th>주문 시간</th>
-                <th>주문 번호</th>
-                <th>주문 확인</th>
-            </tr>
+                    <th>가게</th>
+                    <th>메뉴</th>
+                    <th>수량</th>
+                    <th>총 가격</th>
+                    <th>주문 시간</th>
+                    <th>주문 번호</th>
+                    <th>주문 확인</th>
+                </tr>
 
-            {% for order in orders.all %} 
-            {% if order.market == markets %}
-            <tr>
-                <td>{{order.market.name}}</td>
-                <td>{{order.menu.name}}</td>
-                <td>{{order.amount}}</td>
-                <td>{{order.Totalprice}}</td>
-                <td>{{order.time}}</td>
-                <td>{{order.id}}</td>
-                <td>
-                <form method='post' action="{% url 'admin_order_delete' markets.id order.id %}" enctype="multipart/form-data"> 
-                    {% csrf_token %}
-                    <button value="{{order.id}}" onclick="alert(this.value+' 번 픽업 되었습니다.');">확인</button>
-                </form>
-                </td>
-            </tr>
-            {% endif %}
-            {% endfor %}           
+                {% for order in orders.all %} 
+                {% if order.market == markets %}
+                <tr>
+                    <td>{{order.market.name}}</td>
+                    <td>{{order.menu.name}}</td>
+                    <td>{{order.amount}}</td>
+                    <td>{{order.Totalprice}}</td>
+                    <td>{{order.time}}</td>
+                    <td>{{order.id}}</td>
+                    <td>
+                    <form method='post' action="{% url 'admin_order_delete' markets.id order.id %}" enctype="multipart/form-data"> 
+                        {% csrf_token %}
+                        <button value="{{order.id}}" onclick="alert(this.value+' 번 픽업 되었습니다.');">확인</button>
+                    </form>
+                    </td>
+                </tr>
+                {% endif %}
+                {% endfor %}           
             </table>
-    </body>
-</html>
 {% endif %}
 {% endblock content %}

@@ -1,20 +1,47 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
-    <link rel="stylesheet" href="{% static 'css/home.css' %}">
-<a href="{% url 'market'%}">가게 등록</a>
-<a href="{% url 'market_search'%}">가게 검색</a>
-<a href="{% url 'jido' %}">주변 가게 알아보기</a>
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<div class="take_image">
+    <img src="{% static 'img/take_image.png' %}" alt="">
+</div>
+<div class="menu"> 
 {% if user.is_active %}
-<a href="{% url 'order_check' %}">주문 내역 확인</a>
+<!--로그인 했을 때-->
+        {% if user.username != "admin" %} 
+            {% if user.profile.market_id != -1 %} <!--가게주인-->
+                <a href="{% url 'admin_order_check' user.profile.market_id %}">{{market.name}} 주문 조회</a>
+                <a href="{% url 'detail' user.profile.market_id %}">{{market.name}} 관리</a>
+            {% else %} <!--일반 사용자-->
+                <a href="{% url 'market_search'%}">가게 검색</a>
+                <a href="{% url 'jido' %}">지도</a>
+                <a href="{% url 'order_check' %}">주문 내역 확인</a>
+                <a href="{% url 'new'%}">가게 등록</a>
+            {% endif %}
+        {% else %} <!--관리자-->
+            <a href="{% url 'market' %}">가게 조회</a>
+        {% endif %}
 <br>
 <hr>
-<p>{{user}}님이 즐겨찾는 가게 :</p>
-{% for a in like %}
-{% if a.user == user %}
-    <a href="{% url 'detail' a.market.id %}">{{a.market.name}}</a>
+{% else %}
+    <a href="{% url 'market_search'%}">가게 검색</a>
+    <a href="{% url 'jido' %}">지도</a>
 {% endif %}
-{% endfor %}
-{% endif %}
+</div>
+
+{% if user.is_active %}
+        {% if user.username != "admin" %}
+            {% if user.profile.market_id == -1 %}
+            <div class="like">
+                    <i class="fa fa-star"> </i>&nbsp{{user}}님이 즐겨찾는 가게 :
+                    {% for a in like %}
+                        {% if a.user == user %}
+                            <a href="{% url 'detail' a.market.id %}">{{a.market.name}}</a>
+                        {% endif %}
+                    {% endfor %}
+            </div>
+            {% endif %}
+        {% endif %}
+    {% endif %}
 {% endblock content %}
 

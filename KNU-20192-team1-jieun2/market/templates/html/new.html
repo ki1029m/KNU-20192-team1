@@ -1,38 +1,29 @@
 {% extends "base.html" %}
 {% block content %}
 {% load static %}
-    <link rel="stylesheet" href="{% static 'css/new.css' %}">
-    <html>
-            <head>
-                <title>TAKE 가게 등록 페이지</title>
-            </head>
-            <body>
-                    <form action="{% url 'create' %}" enctype="multipart/form-data">
-                            {% csrf_token %}
-                            <h4>가게 등록</h4>
-                            <br>
-                            <h4>가게 이름: </h4>
-                            <input type="text" name="name">
-                            <br>
-                            
-                            <h4>위치: </h4>
-                            <input type="text" name="address">
-                            <br>
-                
-                            <h4>오픈시간: </h4>
-                            <input type="time" name="start_time">
-                            <br>
-                
-                            <h4>마감 시간: </h4>
-                            <input type="time" name="end_time">
-                            <br>
-        
-                            <h4>정보: </h4>
-                            <input type="textarea" name="description">
-                            <br>
-        
-                            <input class="btn btn-dark" type="submit" value="등록하기">
-                    </form>
-                </body>
-        </html>
+<link rel="stylesheet" href="{% static 'css/new.css' %}">
+<div class="new" style="text-align:center; border: 2px solid black; font-size: 2rem;">
+        <form action="{% url 'create' %}" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h2>가게 등록</h2>
+                <hr>
+                <h4>가게 이름 : <input style="padding:10px" type="text" name="name"> </h4>
+                <h4>위치 : <input style="padding:10px" type="text" name="address"> </h4>
+                <h4>오픈시간 : <input style="padding:10px" type="time" name="start_time"> </h4>
+                <h4>마감 시간 : <input style="padding:10px" type="time" name="end_time"> </h4>
+                <h4>정보 : <input style="padding:10px" type="textarea" name="description"></h4>
+                <input style="  
+                background-color: black; /* Green */
+                border: none;
+                color: white;
+                padding: 2px 20px;
+                text-align: center;
+                border-radius: 10px;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 16px;
+                " class="btn btn-dark" type="submit" value="등록하기">
+                <br><br>
+        </form>
+</div>
 {% endblock content %}

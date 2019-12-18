@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/base.css' %}">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -17,9 +18,18 @@
                 <nav class="naviagtion">
                     <!-- <p style="font-size: 40px; margin:0; padding:0;">TAKE</p> -->
                     <ul class="navigation__flex">
-                        <li class="naviagtion__item" style="flex:1"><a href="/" class="navigation__logo" >TAKE</a></li>
+                        <li class="naviagtion__item" style="flex:1; "><a href="/" class="navigation__logo" style="color:black; background-color: white;" >TAKE</a></li>
                         {% if user.is_active %}
-                        <h3>{{user.username}}</h3>
+                            <h3>{{user.username}}님</h3>
+                            {% if user.username != 'admin' %}
+                                {% if user.profile.market_id != -1 %}     
+                                    <h3>[[가게 주인]]</h3>
+                                {% else %}
+                                    <h3>[[일반회원]]</h3>
+                                {% endif %}
+                            {% else %}
+                                <h3>[[관리자]]</h3>
+                            {% endif %}
                         <li class="naviagtion__item"><a href="{% url 'logout'%}">로그아웃</a></li>
                         {% else %}
                         <li class="naviagtion__item"><a href="{% url 'login'%}">로그인</a></li>
@@ -54,8 +64,8 @@
     <footer>
         <section class="inner">
             <section class="branding">
-            <h1>TAKE</h1>
-            <h2>음료 예약 서비스</h2>
+            
+            <h2>"TAKE" 음료 예약 서비스</h2>
         </section>
     </footer>
 </body>

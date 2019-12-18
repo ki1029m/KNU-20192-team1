@@ -21,7 +21,6 @@ body, html {
     box-sizing: border-box;
     height: 100%;
     margin: 0;
-    min-height: 100%;
     min-width: 100%;
     padding: 0;
     position: relative;
@@ -31,8 +30,9 @@ body, html {
     min-height: 100%;
     position: relative;
     width: 100%;
-    padding-bottom: 188px;
+    /* padding-bottom: 188px; */
     padding-top: 60px;
+    padding-bottom:109px;
 }
 
 body:not(.home) .container>.header {
@@ -58,7 +58,7 @@ body:not(.home) .container>.header {
 .container>.content {
     margin-top: -1px;
     min-height: 100%;
-    padding-bottom:188px;
+    position: relative;
 }
 
 .container .inner2 {
@@ -155,11 +155,11 @@ body>footer {
     padding: 5px 0 2px!important;
     width: 100%;
     z-index: 200;
-    position: absolute;   
 }
 
 footer{
     bottom : 0;
+    position: fixed;
 }
 
 footer .branding{

@@ -2,8 +2,12 @@
 {% block content %}
 {% load static %}
 <link rel="stylesheet" href="{% static 'css/home.css' %}">
+<div class="take_image">
+    <img src="{% static 'img/take_image.png' %}" alt="">
+</div>
+<div class="menu"> 
 {% if user.is_active %}
-<div class="menu"> <!--로그인 했을 때-->
+<!--로그인 했을 때-->
         {% if user.username != "admin" %} 
             {% if user.profile.market_id != -1 %} <!--가게주인-->
                 <a href="{% url 'admin_order_check' user.profile.market_id %}">{{market.name}} 주문 조회</a>
@@ -22,19 +26,20 @@
 {% else %}
     <a href="{% url 'market_search'%}">가게 검색</a>
     <a href="{% url 'jido' %}">지도</a>
-</div>
 {% endif %}
-
+</div>
 
 {% if user.is_active %}
         {% if user.username != "admin" %}
             {% if user.profile.market_id == -1 %}
-                <p>{{user}}님이 즐겨찾는 가게 :</p>
+            <div class="like">
+                    <i class="fa fa-star"> </i>&nbsp{{user}}님이 즐겨찾는 가게 :
                     {% for a in like %}
                         {% if a.user == user %}
                             <a href="{% url 'detail' a.market.id %}">{{a.market.name}}</a>
                         {% endif %}
                     {% endfor %}
+            </div>
             {% endif %}
         {% endif %}
     {% endif %}

@@ -3,16 +3,27 @@
     {% block content %}
     {% load static %}
     <link rel="stylesheet" href="{% static 'css/jido.css' %}">
-    <div style="display:flex">
+    <div style="display:flex; text-align: center">
     <div style="flex: 1 auto">
     <h1>주변 가게 보기</h1>
-    <input type="text" id="input">
-    <button onclick="input()">입력받기</button>
+    <input type="text" id="input"><br><br>
+    <button style="  
+    background-color: black; /* Green */
+    border: none;
+    color: white;
+    padding: 2px 20px;
+    text-align: center;
+    border-radius: 10px;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    width:60%;
+    " onclick="input()">입력받기</button>
     <br>
     </div>
     
 
-    <div id="map" style="width:800px;height:350px;"></div>
+    <div id="map" style="width:800px;height:500px;"></div>
     </div>
     <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=d5cc7bdb70e56d862f043fce1d0c783f&libraries=services,clusterer,drawing"></script>
     <script>
@@ -169,8 +180,51 @@
             var infohavana = new kakao.maps.InfoWindow({
                 content: '<div style="width:150px;text-align:center;padding:6px 0;">HAVANA EXPRESS</div>'
             });
-            //infohavana.open(map, markhavana);
             markhavana.setMap(map);
+
+            var aboutTime = new kakao.maps.LatLng(35.884538, 128.612791); // 어바웃타임
+            var markaboutTime = new kakao.maps.Marker({
+                map: map,
+                position: aboutTime,
+                image: markerImage
+            })
+            var infoaboutTime = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">어바웃타임</div>'
+            });
+            markaboutTime.setMap(map);
+
+            var palgong = new kakao.maps.LatLng(35.885608, 128.609781);   //팔공티
+            var markpalgong = new kakao.maps.Marker({
+                map: map,
+                position: palgong,
+                image: markerImage
+            })
+            var infopalgong = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">팔공티</div>'
+            });
+            markpalgong.setMap(map);
+
+            var theZ = new kakao.maps.LatLng(35.886208, 128.610283);   //더쪽
+            var marktheZ = new kakao.maps.Marker({
+                map: map,
+                position: theZ,
+                image: markerImage
+            })
+            var infotheZ = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">더 쪽</div>'
+            });
+            marktheZ.setMap(map);
+
+            var kon = new kakao.maps.LatLng(35.886297, 128.607100);   //콘크리트
+            var markkon = new kakao.maps.Marker({
+                map: map,
+                position: kon,
+                image: markerImage
+            })
+            var infokon = new kakao.maps.InfoWindow({
+                content: '<div style="width:150px;text-align:center;padding:6px 0;">콘크리트</div>'
+            });
+            markkon.setMap(map);
 
             kakao.maps.event.addListener(markkaldi, 'mouseover', function() {
             // 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
@@ -183,7 +237,7 @@
             });
             
             kakao.maps.event.addListener(markkaldi, 'click', function() {
-                window.location = "{% url 'detail' 7 %}";
+                window.location = "{% url 'detail' 13 %}";
             });
 
 
@@ -196,7 +250,7 @@
             });
 
             kakao.maps.event.addListener(markhavana, 'click', function() {
-                window.location.href = '127.0.0.1:8000/';
+                window.location.href = "{% url 'detail' 12 %}";
             });
 
             
@@ -209,7 +263,7 @@
             });
 
             kakao.maps.event.addListener(markcofking, 'click', function() {
-                window.location.href = '127.0.0.1:8000/';
+                window.location.href = "{% url 'detail' 14 %}";
             });
 
 
@@ -222,23 +276,69 @@
             });
 
             kakao.maps.event.addListener(markkeanu, 'click', function() {
-                window.location = "{% url 'detail' 5 %}";
+                window.location = "{% url 'detail' 15 %}";
             });
 
-            // var dog = new kakao.maps.LatLng(36.0988367,128.0059136);
-            // var markdog = new kakao.maps.Marker({
-            //     map: map,
-            //     position: dog
-            // })
-            // var infodog = new kakao.maps.InfoWindow({
-            //     content: '<div style="width:150px;text-align:center;padding:6px 0;">카페모리</div>'
-            // });
-            // infodog.open(map, markdog);
-            // markdog.setMap(map);
+
+
+            kakao.maps.event.addListener(markaboutTime, 'mouseover', function() {
+                infoaboutTime.open(map, markaboutTime);
+            });
+
+            kakao.maps.event.addListener(markaboutTime, 'mouseout', function() {
+                infoaboutTime.close();
+            });
+
+            kakao.maps.event.addListener(markaboutTime, 'click', function() {
+                window.location = "{% url 'detail' 16 %}";
+            });
+
+
+
+            kakao.maps.event.addListener(markkon, 'mouseover', function() {
+                infokon.open(map, markkon);
+            });
+
+            kakao.maps.event.addListener(markkon, 'mouseout', function() {
+                infokon.close();
+            });
+
+            kakao.maps.event.addListener(markkon, 'click', function() {
+                window.location = "{% url 'detail' 18 %}";
+            });
+
+
+
+            kakao.maps.event.addListener(markpalgong, 'mouseover', function() {
+                infopalgong.open(map, markpalgong);
+            });
+
+            kakao.maps.event.addListener(markpalgong, 'mouseout', function() {
+                infopalgong.close();
+            });
+
+            kakao.maps.event.addListener(markpalgong, 'click', function() {
+                window.location = "{% url 'detail' 19 %}";
+            });
+
+
+
+            kakao.maps.event.addListener(marktheZ, 'mouseover', function() {
+                infotheZ.open(map, marktheZ);
+            });
+
+            kakao.maps.event.addListener(marktheZ, 'mouseout', function() {
+                infotheZ.close();
+            });
+
+            kakao.maps.event.addListener(marktheZ, 'click', function() {
+                window.location = "{% url 'detail' 17 %}";
+            });
         }
 
 
 
         window.addEventListener("load", findLocation);
     </script>
+
     {% endblock content %}
