@@ -48,3 +48,8 @@ python manage.py runserver # Django 서버 작동
 - 사용자는 자신이 원하는 음료를 수량에 맞게 주문할 수 있다. 필요시 삭제도 가능
 - 가게 주인은 자신의 가게에 들어온 주문을 확인하고 픽업확인 버튼을 통해 거래를 완료할 수 있다.
 ```
+
+
+
+https://github.com/user-attachments/assets/c1d3658b-bdbc-4dd4-b60e-1fdb99605ca7
+
